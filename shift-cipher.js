@@ -1,49 +1,46 @@
 class ShiftCipher {
-    constructor(string, number) {
-      this._string = string;
+    constructor(number) {
       this._number = number
     }
   
-    encrypt() {
+    encrypt(string) {
       let cipher = [];
-      this._string = this._string.toUpperCase();
-      for (let i = 0; i < this._string.length; i++) {
-        if (this._string.charCodeAt(i) > 64 && this._string.charCodeAt(i) < 91) {
-          let new_pos = this._string.charCodeAt(i) + this._number;
+      string = string.toUpperCase();
+      for (let i = 0; i < string.length; i++) {
+        if (string.charCodeAt(i) > 64 && string.charCodeAt(i) < 91) {
+          let new_pos = string.charCodeAt(i) + this._number;
           if (new_pos > 90) {
             new_pos -= 26
           }
           cipher.push(String.fromCharCode(new_pos))
              
         } else {
-          cipher.push(String.fromCharCode(this._string.charCodeAt(i)))
+          cipher.push(String.fromCharCode(string.charCodeAt(i)))
         }
       }
       return cipher.join('')
     }
 
-    decrypt() {
+    decrypt(encrypted_string) {
       let decipher = [];
-      this._string = this._string.toLowerCase();
-      for (let i = 0; i < this._string.length; i++) {
-        if (this._string.charCodeAt(i) > 96 && this._string.charCodeAt(i) < 123) {
-          let new_pos = this._string.charCodeAt(i) - this._number;
+      encrypted_string = encrypted_string.toLowerCase();
+      for (let i = 0; i < encrypted_string.length; i++) {
+        if (encrypted_string.charCodeAt(i) > 96 && encrypted_string.charCodeAt(i) < 123) {
+          let new_pos = encrypted_string.charCodeAt(i) - this._number;
           if (new_pos < 97) {
             new_pos += 26
           }
           decipher.push(String.fromCharCode(new_pos))
              
         } else {
-          decipher.push(String.fromCharCode(this._string.charCodeAt(i)))
+          decipher.push(String.fromCharCode(encrypted_string.charCodeAt(i)))
         }
       }
       return decipher.join('')
     }
   }
   
-  const mystring = new ShiftCipher("h-elloz", 1)
-  const encryptedstring = new ShiftCipher("I-FMMPA", 1)
 
-  
-  console.log(mystring.encrypt())
-  console.log(encryptedstring.decrypt())
+const cipher = new ShiftCipher(2);
+console.log(cipher.encrypt('I love to code!')); // returns 'K NQXG VQ EQFG!'
+console.log(cipher.decrypt('K <3 OA RWRRA')); // returns 'i <3 my puppy'
